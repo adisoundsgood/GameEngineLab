@@ -6,6 +6,7 @@ TagManager:
   tags:
   - p1
   - p2
+  - despawn
   layers:
   - Default
   - TransparentFX
