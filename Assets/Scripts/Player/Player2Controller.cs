@@ -4,120 +4,122 @@ using UnityEngine;
 
 public class Player2Controller : MonoBehaviour {
 
-    [SerializeField]
-    private float movementSpeed;
+	[SerializeField]
+	private float movementSpeed;
 
-    //player and ship prefabs
-    [SerializeField]
-    private GameObject playerPrefab;
-    private GameObject playerShip;
+	// Player and ship prefabs
+	[SerializeField]
+	private GameObject shipPrefab;
+	private GameObject playerPrefab;
 
-    // camera and bounds
-    [SerializeField]
-    private Camera mainCamera;
-    private Bounds cameraBounds;
-    private float halfWidth, halfHeight, screenhalfX, screenhalfY;
+	// Camera and bounds
+	[SerializeField]
+	private Camera mainCamera;
+	private Bounds cameraBounds;
+	private float halfWidth, halfHeight, screenhalfX, screenhalfY;
 
-    // setup
-    private Rigidbody rigidBody;
-    private Vector3 input, movement;
-    private Vector3 startPos;
-    private Quaternion startRotation;
-    private MeshRenderer shipMesh;
+	// Setup
+	private Rigidbody rigidBody;
+	private Vector3 input, movement;
+	private Vector3 startPos;
+	private Quaternion startRotation;
+	private MeshRenderer shipMesh;
 
-    // health
-    public GameObject healthManager;
-    HealthManager hm;
-    private bool isInvincible;
-    [SerializeField]
-    private float invincibleTimer;
-    private float startTime = 0f;
+	// Health
+	public GameObject healthManager;
+	private PlayerHealthManager hm;
+	private bool isInvincible;
 
-    // Shooting
-    public GameObject shot;
-    public Transform bulletSpawner;
-    public float fireRate;
-    private float nextFire;
+	[SerializeField]
+	private float invincibleTimer;
+	private float startTime = 0f;
 
-    void Awake() {
-        startPos = transform.position;
-        startRotation = playerPrefab.transform.rotation;
+	// Shooting
+	public GameObject shot;
+	public Transform bulletSpawner;
+	public float fireRate;
+	private float nextFire;
 
-        playerShip = (GameObject) Instantiate(playerPrefab, startPos, startRotation);
-        playerShip.transform.parent = this.transform;
-        rigidBody = GetComponent<Rigidbody>();
-        rigidBody.position = startPos;
+	void Awake() {
+		startPos = transform.position;
+		startRotation = shipPrefab.transform.rotation;
 
-        shipMesh = playerShip.GetComponent<MeshRenderer>();
+		playerPrefab = (GameObject) Instantiate(shipPrefab, startPos, startRotation);
+		playerPrefab.transform.parent = this.transform;
+		rigidBody = GetComponent<Rigidbody>();
+		rigidBody.position = startPos;
 
-        movement = Vector3.zero;
+		shipMesh = playerPrefab.GetComponent<MeshRenderer>();
 
-        halfWidth = playerShip.GetComponent<MeshRenderer>().bounds.extents.x;
-        halfHeight = playerShip.GetComponent<MeshRenderer>().bounds.extents.y;
+		movement = Vector3.zero;
 
-        cameraBounds = CameraExtensions.OrthographicBounds(mainCamera);
-        screenhalfX = cameraBounds.extents.x;
-        screenhalfY = cameraBounds.extents.y;
+		halfWidth = playerPrefab.GetComponent<MeshRenderer>().bounds.extents.x;
+		halfHeight = playerPrefab.GetComponent<MeshRenderer>().bounds.extents.y;
 
-        hm = healthManager.GetComponent<HealthManager>();
-        isInvincible = false;
-    }
+		cameraBounds = CameraExtensions.OrthographicBounds(mainCamera);
+		screenhalfX = cameraBounds.extents.x;
+		screenhalfY = cameraBounds.extents.y;
 
-    void Update() {
-        if (Time.time > nextFire) {
-            nextFire = Time.time + fireRate;
-            Instantiate (shot, bulletSpawner.position, bulletSpawner.rotation);
-        }
-    }
+		hm = healthManager.GetComponent<PlayerHealthManager>();
+		isInvincible = false;
+	}
 
-    void FixedUpdate() {
-        input = Vector3.zero;
+	void Update() {
+		if (Time.time > nextFire) {
+			nextFire = Time.time + fireRate;
+			Instantiate (shot, bulletSpawner.position, bulletSpawner.rotation);
+		}
+	}
 
-        // Structured so players cannot move simultaneously in opposing directions
-        if (Input.GetAxisRaw("Horizontal2") < 0f && (rigidBody.position.x - halfWidth > -1*screenhalfX))  // moving left 
-            input += Vector3.left;
-        else if (Input.GetAxisRaw("Horizontal2") > 0f && (rigidBody.position.x + halfWidth < screenhalfX))  // moving right
-            input += Vector3.right;
-        if (Input.GetAxisRaw("Vertical2") > 0f && (rigidBody.position.y + halfHeight < screenhalfY)) // moving up 
-            input += Vector3.up;
-        else if (Input.GetAxisRaw("Vertical2") < 0f && (rigidBody.position.y - halfHeight > -1*screenhalfY))  // moving down
-            input += Vector3.down;
+	void FixedUpdate() {
+		input = Vector3.zero;
 
-        input.Normalize();
+		// Structured so players cannot move simultaneously in opposing directions
+		if (Input.GetAxisRaw("Horizontal2") < 0f && (rigidBody.position.x - halfWidth > -1 * screenhalfX))  // moving left 
+			input += Vector3.left;
+		else if (Input.GetAxisRaw("Horizontal2") > 0f && (rigidBody.position.x + halfWidth < screenhalfX))  // moving right
+			input += Vector3.right;
+		if (Input.GetAxisRaw("Vertical2") > 0f && (rigidBody.position.y + halfHeight < screenhalfY)) // moving up 
+			input += Vector3.up;
+		else if (Input.GetAxisRaw("Vertical2") < 0f && (rigidBody.position.y - halfHeight > -1 * screenhalfY))  // moving down
+			input += Vector3.down;
 
-        movement = input * movementSpeed * Time.fixedDeltaTime;
-        rigidBody.MovePosition(rigidBody.position + movement);
-    }
+		input.Normalize();
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!isInvincible) {
-            if (other.CompareTag("enemy bullet")) {
-                if (hm.getLives() < 0) {
-                    Destroy(this);
-                }
+		movement = input * movementSpeed * Time.fixedDeltaTime;
+		rigidBody.MovePosition(rigidBody.position + movement);
+	}
 
-                hm.gotHit();
-                transform.position  = startPos;
-                rigidBody.position = startPos;
-                playerPrefab.transform.rotation = startRotation;
-                isInvincible = true;
-                StartCoroutine("Flicker");
-            }
-        }
-    }
+	private void OnTriggerEnter(Collider col) {
+		if (!isInvincible) {
+			if (col.CompareTag("enemyBullet") || col.CompareTag("enemy")) {
+				if (hm.getLives() <= 0) {
+					Destroy(this);
+				}
 
-    IEnumerator Flicker() {
-        while (startTime < invincibleTimer) {
-            startTime += Time.deltaTime + 0.25f;
-            //Debug.Log("startTime: " + startTime);
-            shipMesh.enabled = false;
-            yield return new WaitForSeconds(0.125f);
-            shipMesh.enabled = true;
-            yield return new WaitForSeconds(0.125f);
-        }
-        isInvincible = false;
-        startTime = 0;
-        yield return null;
-    }
+				hm.gotHit();
+
+				// Respawn with invincibility
+				transform.position  = startPos;
+				rigidBody.position = startPos;
+				playerPrefab.transform.rotation = startRotation;
+				StartCoroutine("Flicker");
+			}
+		}
+	}
+
+	IEnumerator Flicker() {
+		isInvincible = true;
+		while (startTime < invincibleTimer) {
+			startTime += Time.deltaTime + 0.2f;
+
+			shipMesh.enabled = false;
+			yield return new WaitForSeconds(0.1f);
+			shipMesh.enabled = true;
+			yield return new WaitForSeconds(0.1f);
+		}
+		startTime = 0;
+		isInvincible = false;
+		yield return null;
+	}
 }

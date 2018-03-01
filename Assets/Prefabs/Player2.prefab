@@ -97,9 +97,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 7
-  playerPrefab: {fileID: 1790048220613924, guid: f691ea6857fd397438a6883bea62a396,
-    type: 2}
+  shipPrefab: {fileID: 1790048220613924, guid: f691ea6857fd397438a6883bea62a396, type: 2}
   mainCamera: {fileID: 0}
-  shot: {fileID: 1424947270433882, guid: bb919517ef038ea47ae5a09e9030af1a, type: 2}
+  healthManager: {fileID: 0}
+  invincibleTimer: 3
+  shot: {fileID: 1424947270433882, guid: 33c8d31d085f6974d904b10a5aca50dc, type: 2}
   bulletSpawner: {fileID: 4110807480260454}
   fireRate: 0.25

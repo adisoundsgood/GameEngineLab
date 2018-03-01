@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 
+	// Movement
 	public float speed;
 	public bool patrol = true;
 
@@ -13,7 +14,17 @@ public class EnemyController : MonoBehaviour {
 	public Vector3 moveDirection;
 	public Vector3 velocity;
 
+	// Health
+	public GameObject[] players;
+	public GameObject EnemyHealthManager;
+	private EnemyHealthManager ehm;
+
+	void Awake() {
+		ehm = EnemyHealthManager.GetComponent<EnemyHealthManager>();
+	}
+
 	void Update() {
+		// Movement
 		if (curWaypoint < waypoints.Length) {
 			target = waypoints [curWaypoint].position;
 			moveDirection = target - transform.position;
@@ -37,6 +48,21 @@ public class EnemyController : MonoBehaviour {
 
 		GetComponent<Rigidbody> ().velocity = velocity;
 
+		// Rotation
 		transform.Rotate (new Vector3 (0, 0, 300) * Time.deltaTime);
+	}
+
+	void OnTriggerEnter(Collider col) {
+		if (col.CompareTag("p1") || col.CompareTag("p2")) {
+			Debug.Log ("do this");
+		}
+		else if (col.CompareTag("playerBullet")) {
+			// Need to add in player strength at some point
+			ehm.gotHit (5);
+		}
+	}
+
+	void Death() {
+		Destroy (this.gameObject);
 	}
 }
