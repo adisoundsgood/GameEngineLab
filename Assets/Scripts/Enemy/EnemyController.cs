@@ -53,10 +53,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		if (col.CompareTag("p1") || col.CompareTag("p2")) {
-			Debug.Log ("do this");
-		}
-		else if (col.CompareTag("playerBullet")) {
+		if (col.CompareTag("playerBullet")) {
 			// Need to add in player strength at some point
 			ehm.gotHit (5);
 		}
