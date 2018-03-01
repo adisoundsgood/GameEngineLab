@@ -7,6 +7,8 @@ TagManager:
   - p1
   - p2
   - despawn
+  - player bullet
+  - enemy bullet
   layers:
   - Default
   - TransparentFX

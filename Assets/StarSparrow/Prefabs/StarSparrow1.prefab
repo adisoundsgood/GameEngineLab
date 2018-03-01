@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4330142336339110}
   - component: {fileID: 33875047042248568}
   - component: {fileID: 23208700391828330}
-  - component: {fileID: 135425487259832294}
+  - component: {fileID: 136348894124565562}
+  - component: {fileID: 136633746772372564}
   m_Layer: 0
   m_Name: StarSparrow1
   m_TagString: Untagged
@@ -37,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1770699315894654}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -83,8 +84,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1770699315894654}
   m_Mesh: {fileID: 4300000, guid: add769d179a9826498fc063c005d35bd, type: 3}
---- !u!135 &135425487259832294
-SphereCollider:
+--- !u!136 &136348894124565562
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -92,6 +93,20 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.0648308
-  m_Center: {x: -0.0000015497208, y: 0.06952076, z: 0.32428572}
+  m_Radius: 0.82125014
+  m_Height: 4.44
+  m_Direction: 0
+  m_Center: {x: -0.0000014901161, y: -0.41000006, z: -0.5}
+--- !u!136 &136633746772372564
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1770699315894654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.4083382
+  m_Height: 3.2847514
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.20693986}

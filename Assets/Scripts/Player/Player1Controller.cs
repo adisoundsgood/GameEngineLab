@@ -7,17 +7,31 @@ public class Player1Controller : MonoBehaviour {
     [SerializeField]
     private float movementSpeed;
 
+    //player and ship prefabs
     [SerializeField]
 	private GameObject playerPrefab;
 	private GameObject playerShip;
 
+    // camera and bounds
     [SerializeField]
 	private Camera mainCamera;
 	private Bounds cameraBounds;
 	private float halfWidth, halfHeight, screenhalfX, screenhalfY;
 
+    // setup
     private Rigidbody rigidBody;
     private Vector3 input, movement;
+    private Vector3 startPos;
+    private Quaternion startRotation;
+    private MeshRenderer shipMesh;
+
+    // health
+    public GameObject healthManager;
+    HealthManager hm;
+    private bool isInvincible;
+    [SerializeField]
+    private float invincibleTimer;
+    private float startTime = 0f;
 
 	// Shooting
 	public GameObject shot;
@@ -26,10 +40,15 @@ public class Player1Controller : MonoBehaviour {
 	private float nextFire;
 
     void Awake() {
-        playerShip = (GameObject) Instantiate(playerPrefab, transform.position, playerPrefab.transform.rotation);
+        startPos = transform.position;
+        startRotation = playerPrefab.transform.rotation;
+
+        playerShip = (GameObject) Instantiate(playerPrefab, startPos, startRotation);
         playerShip.transform.parent = this.transform;
         rigidBody = GetComponent<Rigidbody>();
-        rigidBody.position = transform.position;
+        rigidBody.position = startPos;
+
+        shipMesh = playerShip.GetComponent<MeshRenderer>();
 
         movement = Vector3.zero;
 
@@ -39,6 +58,9 @@ public class Player1Controller : MonoBehaviour {
         cameraBounds = CameraExtensions.OrthographicBounds(mainCamera);
         screenhalfX = cameraBounds.extents.x;
         screenhalfY = cameraBounds.extents.y;
+
+        hm = healthManager.GetComponent<HealthManager>();
+        isInvincible = false;
     }
 
 	void Update() {
@@ -65,5 +87,37 @@ public class Player1Controller : MonoBehaviour {
 
         movement = input * movementSpeed * Time.fixedDeltaTime;
         rigidBody.MovePosition(rigidBody.position + movement);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isInvincible) {
+            if (other.CompareTag("enemy bullet")) {
+                if (hm.getLives() < 0) {
+                    Destroy(this);
+                }
+
+                hm.gotHit();
+                transform.position  = startPos;
+                rigidBody.position = startPos;
+                playerPrefab.transform.rotation = startRotation;
+                isInvincible = true;
+                StartCoroutine("Flicker");
+            }
+        }
+    }
+
+    IEnumerator Flicker() {
+        while (startTime < invincibleTimer) {
+            startTime += Time.deltaTime + 0.25f;
+            Debug.Log("startTime: " + startTime);
+            shipMesh.enabled = false;
+            yield return new WaitForSeconds(0.125f);
+            shipMesh.enabled = true;
+            yield return new WaitForSeconds(0.125f);
+        }
+        startTime = 0;
+        isInvincible = false;
+        yield return null;
     }
 }
