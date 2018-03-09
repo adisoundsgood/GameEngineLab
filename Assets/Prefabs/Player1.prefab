@@ -100,7 +100,7 @@ MonoBehaviour:
   shipPrefab: {fileID: 1770699315894654, guid: ccd04313267453f40890f0e3ddcf7720, type: 2}
   mainCamera: {fileID: 0}
   healthManager: {fileID: 0}
-  invincibleTimer: 3
+  invincibleTimer: 2
   shot: {fileID: 1424947270433882, guid: bb919517ef038ea47ae5a09e9030af1a, type: 2}
   bulletSpawner: {fileID: 4054445189442830}
   fireRate: 0.25

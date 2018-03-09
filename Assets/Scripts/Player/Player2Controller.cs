@@ -65,7 +65,7 @@ public class Player2Controller : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Time.time > nextFire) {
+		if (Time.time > nextFire && !isInvincible) {
 			nextFire = Time.time + fireRate;
 			Instantiate (shot, bulletSpawner.position, bulletSpawner.rotation);
 		}
@@ -111,12 +111,12 @@ public class Player2Controller : MonoBehaviour {
 	IEnumerator Flicker() {
 		isInvincible = true;
 		while (startTime < invincibleTimer) {
-			startTime += Time.deltaTime + 0.2f;
+			startTime += Time.deltaTime + 0.1f;
 
 			shipMesh.enabled = false;
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.05f);
 			shipMesh.enabled = true;
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.05f);
 		}
 		startTime = 0;
 		isInvincible = false;
