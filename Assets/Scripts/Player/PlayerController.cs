@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player2Controller : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
 	[SerializeField]
 	private float movementSpeed;
@@ -72,22 +72,41 @@ public class Player2Controller : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		input = Vector3.zero;
+		if (this.gameObject.tag == "p1") {
+			input = Vector3.zero;
 
-		// Structured so players cannot move simultaneously in opposing directions
-		if (Input.GetAxisRaw("Horizontal2") < 0f && (rigidBody.position.x - halfWidth > -1 * screenhalfX))  // moving left 
+			if (Input.GetAxisRaw ("Horizontal1") < 0f && (rigidBody.position.x - halfWidth > -1 * screenhalfX))  // moving left 
 			input += Vector3.left;
-		else if (Input.GetAxisRaw("Horizontal2") > 0f && (rigidBody.position.x + halfWidth < screenhalfX))  // moving right
+			else if (Input.GetAxisRaw ("Horizontal1") > 0f && (rigidBody.position.x + halfWidth < screenhalfX))  // moving right
 			input += Vector3.right;
-		if (Input.GetAxisRaw("Vertical2") > 0f && (rigidBody.position.y + halfHeight < screenhalfY)) // moving up 
+			if (Input.GetAxisRaw ("Vertical1") > 0f && (rigidBody.position.y + halfHeight < screenhalfY)) // moving up 
 			input += Vector3.up;
-		else if (Input.GetAxisRaw("Vertical2") < 0f && (rigidBody.position.y - halfHeight > -1 * screenhalfY))  // moving down
+			else if (Input.GetAxisRaw ("Vertical1") < 0f && (rigidBody.position.y - halfHeight > -1 * screenhalfY))  // moving down
 			input += Vector3.down;
 
-		input.Normalize();
+			input.Normalize ();
 
-		movement = input * movementSpeed * Time.fixedDeltaTime;
-		rigidBody.MovePosition(rigidBody.position + movement);
+			movement = input * movementSpeed * Time.fixedDeltaTime;
+			rigidBody.MovePosition (rigidBody.position + movement);
+		}
+
+		if (this.gameObject.tag == "p2") {
+			input = Vector3.zero;
+
+			if (Input.GetAxisRaw ("Horizontal2") < 0f && (rigidBody.position.x - halfWidth > -1 * screenhalfX))  // moving left 
+				input += Vector3.left;
+			else if (Input.GetAxisRaw ("Horizontal2") > 0f && (rigidBody.position.x + halfWidth < screenhalfX))  // moving right
+				input += Vector3.right;
+			if (Input.GetAxisRaw ("Vertical2") > 0f && (rigidBody.position.y + halfHeight < screenhalfY)) // moving up 
+				input += Vector3.up;
+			else if (Input.GetAxisRaw ("Vertical2") < 0f && (rigidBody.position.y - halfHeight > -1 * screenhalfY))  // moving down
+				input += Vector3.down;
+
+			input.Normalize ();
+
+			movement = input * movementSpeed * Time.fixedDeltaTime;
+			rigidBody.MovePosition (rigidBody.position + movement);
+		}
 	}
 
 	private void OnTriggerEnter(Collider col) {

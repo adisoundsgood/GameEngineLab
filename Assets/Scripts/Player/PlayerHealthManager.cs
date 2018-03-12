@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthManager : MonoBehaviour {
 
@@ -10,8 +11,16 @@ public class PlayerHealthManager : MonoBehaviour {
 	[SerializeField]
 	private Text livesText;
 
+	public GameObject loseCanvas;
+
+
 	void Update() {
-		livesText.text = "Lives: " + lives;
+		if (lives >= 0) {
+			livesText.text = "Lives: " + lives;
+		}
+		else if (lives < 0) {
+			livesText.text = "Lives: 0";
+		}
 	}
 
     public int getLives() {
@@ -21,8 +30,8 @@ public class PlayerHealthManager : MonoBehaviour {
     public void gotHit () {
         lives--;
 
-        if (lives <= 0) {
-            Debug.Log("You suck!");
+        if (lives <= -2) {
+			loseCanvas.SetActive(true);
         }
     }
 }

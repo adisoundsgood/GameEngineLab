@@ -34,11 +34,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4482398930120154}
-  - component: {fileID: 114500954846108784}
+  - component: {fileID: 114444375131412444}
   - component: {fileID: 54224879069525228}
   m_Layer: 0
   m_Name: Player1
-  m_TagString: Untagged
+  m_TagString: p1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +85,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114500954846108784
+--- !u!114 &114444375131412444
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -93,14 +93,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1635423362454780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8e6daebc3ae14bd5b6c1599b72c257d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b687a12298c1604d85d152589c8f244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 7
   shipPrefab: {fileID: 1770699315894654, guid: ccd04313267453f40890f0e3ddcf7720, type: 2}
   mainCamera: {fileID: 0}
   healthManager: {fileID: 0}
-  invincibleTimer: 2
+  invincibleTimer: 1.5
   shot: {fileID: 1424947270433882, guid: bb919517ef038ea47ae5a09e9030af1a, type: 2}
   bulletSpawner: {fileID: 4054445189442830}
   fireRate: 0.25

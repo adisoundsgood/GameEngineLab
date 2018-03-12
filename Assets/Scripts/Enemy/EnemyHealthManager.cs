@@ -11,6 +11,9 @@ public class EnemyHealthManager : MonoBehaviour {
 	public int curHP;
 	public Slider healthSlider;
 
+	public GameObject winCanvas;
+
+
 	void Awake() {
 		curHP = maxHP;
 	}
@@ -21,6 +24,7 @@ public class EnemyHealthManager : MonoBehaviour {
 
 		if (curHP <= 0) {
 			enemy.SendMessage("Death");
+			winCanvas.SetActive(true);
 		}
 	}
 }
