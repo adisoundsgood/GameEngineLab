@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4653782777974474}
   - component: {fileID: 33201552425015264}
   - component: {fileID: 23131939222896930}
-  - component: {fileID: 114674390923373404}
   - component: {fileID: 54351090529280114}
   - component: {fileID: 136433880459226660}
+  - component: {fileID: 114131817696166280}
   m_Layer: 0
   m_Name: Missile
   m_TagString: missile
@@ -100,7 +100,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &114674390923373404
+--- !u!114 &114131817696166280
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -108,12 +108,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1747000707778474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd05cac6c59c346e5b526b5a16029585, type: 3}
+  m_Script: {fileID: 11500000, guid: 5846aaa756b144240ae5374a34e77c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.5
   rotationSpeed: 0.75
-  lifeTime: 2.25
+  lifeTime: 2.5
 --- !u!136 &136433880459226660
 CapsuleCollider:
   m_ObjectHideFlags: 1

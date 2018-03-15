@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4497789356145088}
-  - component: {fileID: 114703349801811602}
+  - component: {fileID: 114014735071770076}
   m_Layer: 0
   m_Name: BulletSpawner2
   m_TagString: Untagged
@@ -224,6 +224,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114014735071770076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1208451156867710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821cb567e01c68d44b63e1daa959354e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shot: {fileID: 1743683004740736, guid: 8d2ada9e1abf6b64285971e855f2e897, type: 2}
+  missile: {fileID: 1747000707778474, guid: fb8bc42d12b92ca4d845a5b3b2bcc4c3, type: 2}
+  bulletSpawner: {fileID: 4497789356145088}
+  fireRate: 0.2
+  missileRate: 10
 --- !u!114 &114229876787150584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -246,22 +262,6 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   players: []
   EnemyHealthManager: {fileID: 0}
---- !u!114 &114703349801811602
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1208451156867710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7fab2ac49cfc4b92a04c9e970e3304d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shot: {fileID: 1743683004740736, guid: 8d2ada9e1abf6b64285971e855f2e897, type: 2}
-  missile: {fileID: 1747000707778474, guid: 7a734f9e5ec484870aa76c1c4a159937, type: 2}
-  bulletSpawner: {fileID: 4497789356145088}
-  fireRate: 0.2
-  missileRate: 10
 --- !u!165 &165846480260151336
 AudioHighPassFilter:
   m_ObjectHideFlags: 1
