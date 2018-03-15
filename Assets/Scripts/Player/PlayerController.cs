@@ -28,7 +28,12 @@ public class PlayerController : MonoBehaviour {
 	// Health
 	public GameObject healthManager;
 	private PlayerHealthManager hm;
+	
+	// States
 	private bool isInvincible;
+	private bool isRespawning;
+	private bool usingShield;
+	private bool usingUlt;
 
 	[SerializeField]
 	private float invincibleTimer;
@@ -65,7 +70,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Time.time > nextFire && !isInvincible) {
+		if (Time.time > nextFire && !isRespawning && !usingUlt) {
 			nextFire = Time.time + fireRate;
 			Instantiate (shot, bulletSpawner.position, bulletSpawner.rotation);
 		}
@@ -75,24 +80,36 @@ public class PlayerController : MonoBehaviour {
 		if (this.gameObject.tag == "p1") {
 			input = Vector3.zero;
 
+			// Movement
 			if (Input.GetAxisRaw ("Horizontal1") < 0f && (rigidBody.position.x - halfWidth > -1 * screenhalfX))  // moving left 
-			input += Vector3.left;
+				input += Vector3.left;
 			else if (Input.GetAxisRaw ("Horizontal1") > 0f && (rigidBody.position.x + halfWidth < screenhalfX))  // moving right
-			input += Vector3.right;
+				input += Vector3.right;
 			if (Input.GetAxisRaw ("Vertical1") > 0f && (rigidBody.position.y + halfHeight < screenhalfY)) // moving up 
-			input += Vector3.up;
+				input += Vector3.up;
 			else if (Input.GetAxisRaw ("Vertical1") < 0f && (rigidBody.position.y - halfHeight > -1 * screenhalfY))  // moving down
-			input += Vector3.down;
+				input += Vector3.down;
 
 			input.Normalize ();
 
 			movement = input * movementSpeed * Time.fixedDeltaTime;
 			rigidBody.MovePosition (rigidBody.position + movement);
+			
+			// Skills
+			if (Input.GetButtonDown("Ult1") {
+				// do this
+			}
+			
+			if (Input.GetButtonDown("Shield1") {
+				// do this
+			}
+				
 		}
 
 		if (this.gameObject.tag == "p2") {
 			input = Vector3.zero;
 
+			// Movement
 			if (Input.GetAxisRaw ("Horizontal2") < 0f && (rigidBody.position.x - halfWidth > -1 * screenhalfX))  // moving left 
 				input += Vector3.left;
 			else if (Input.GetAxisRaw ("Horizontal2") > 0f && (rigidBody.position.x + halfWidth < screenhalfX))  // moving right
@@ -133,6 +150,7 @@ public class PlayerController : MonoBehaviour {
 	
 	IEnumerator Flicker() {
 		SetInvincible(true);
+		isRespawning = true;
 		
 		while (startTime < invincibleTimer) {
 			startTime += Time.deltaTime + 0.1f;
@@ -144,7 +162,9 @@ public class PlayerController : MonoBehaviour {
 		}
 		
 		startTime = 0;
+		
 		SetInvincible(false);
+		isRespawning = false;
 		
 		yield return null;
 	}
