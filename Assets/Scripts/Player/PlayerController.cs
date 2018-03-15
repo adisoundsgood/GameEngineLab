@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	private GameObject shipPrefab;
 	private GameObject playerPrefab;
+	[SerializeField]
+	private GameObject shieldPrefab;
 
 	// Camera and bounds
 	[SerializeField]
@@ -32,12 +34,18 @@ public class PlayerController : MonoBehaviour {
 	// States
 	private bool isInvincible;
 	private bool isRespawning;
-	private bool usingShield;
 	private bool usingUlt;
 
 	[SerializeField]
 	private float invincibleTimer;
 	private float startTime = 0f;
+	
+	private bool shieldReady = true;
+	[SerializeField]
+	private float shieldTimer;
+	private float startShield = 0f;
+	private float shieldCD = 10f;
+	private float lastShield;
 
 	// Shooting
 	public GameObject shot;
@@ -55,6 +63,8 @@ public class PlayerController : MonoBehaviour {
 		rigidBody.position = startPos;
 
 		shipMesh = playerPrefab.GetComponent<MeshRenderer>();
+		
+		shieldPrefab.SetActive(false);
 
 		movement = Vector3.zero;
 
@@ -74,8 +84,15 @@ public class PlayerController : MonoBehaviour {
 			nextFire = Time.time + fireRate;
 			Instantiate (shot, bulletSpawner.position, bulletSpawner.rotation);
 		}
+		
+		if (!shieldReady && lastShield < shieldCD) {
+			lastShield += Time.deltaTime;
+		}
+		else {
+			shieldReady = true;
+		}
 	}
-
+	
 	void FixedUpdate() {
 		if (this.gameObject.tag == "p1") {
 			input = Vector3.zero;
@@ -95,8 +112,15 @@ public class PlayerController : MonoBehaviour {
 			movement = input * movementSpeed * Time.fixedDeltaTime;
 			rigidBody.MovePosition (rigidBody.position + movement);
 			
-
-				
+			// Skills
+			if (Input.GetButtonDown("Ult1")) {
+				// do this
+			}
+			
+			if (Input.GetButtonDown("Shield1") && shieldReady) {
+				lastShield = 0f;
+				StartCoroutine("UseShield");
+			}	
 		}
 
 		if (this.gameObject.tag == "p2") {
@@ -116,6 +140,16 @@ public class PlayerController : MonoBehaviour {
 
 			movement = input * movementSpeed * Time.fixedDeltaTime;
 			rigidBody.MovePosition (rigidBody.position + movement);
+						
+			// Skills
+			if (Input.GetButtonDown("Ult2")) {
+				// do this
+			}
+			
+			if (Input.GetButtonDown("Shield2") && shieldReady) {
+				lastShield = 0f;
+				StartCoroutine("UseShield");
+			}
 		}
 	}
 
@@ -158,6 +192,35 @@ public class PlayerController : MonoBehaviour {
 		
 		SetInvincible(false);
 		isRespawning = false;
+		
+		yield return null;
+	}
+	
+	IEnumerator UseShield() {
+		SetInvincible(true);
+		shieldPrefab.SetActive(true);
+		
+		MeshRenderer shieldMesh = shieldPrefab.GetComponent<MeshRenderer> ();
+		
+		while (startShield < shieldTimer) {
+			startShield += Time.deltaTime + 0.1f;
+				
+			if ((shieldTimer - startShield) < 0.5f) {
+				shieldMesh.enabled = false;
+				yield return new WaitForSeconds(0.05f);
+				shieldMesh.enabled = true;
+				yield return new WaitForSeconds(0.05f);
+			}
+			else {
+				yield return new WaitForSeconds(0.1f);
+			}
+		}
+		
+		startShield = 0;
+		shieldReady = false;
+		
+		SetInvincible(false);
+		shieldPrefab.SetActive(false);
 		
 		yield return null;
 	}

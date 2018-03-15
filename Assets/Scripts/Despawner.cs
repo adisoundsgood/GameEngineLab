@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Despawner : MonoBehaviour {
 
-	void OnTriggerExit(Collider col) {
+	void OnTriggerEnter(Collider col) {
 		Destroy (col.gameObject);
 	}
 }
