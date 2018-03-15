@@ -64,8 +64,11 @@ public class PlayerController : MonoBehaviour {
 	private float nextFire;
 
     //Audio
-    private AudioSource audioSource;
+    private AudioSource[] audioSources;
+    private AudioSource shootAudioSource;
+    private AudioSource hurtAudioSource;
     private AudioClip playerHurt;
+    private AudioClip playerShoot;
 
 	void Awake() {
 		// Instantiating players
@@ -96,11 +99,20 @@ public class PlayerController : MonoBehaviour {
 		isInvincible = false;
 
 		// Audio
-        audioSource = GetComponent<AudioSource>();
+        audioSources = GetComponents<AudioSource>();
+        shootAudioSource = audioSources[0];
+        hurtAudioSource = audioSources[1];
         playerHurt = (AudioClip) Resources.Load("Audio/SFX/Player Hurt");
+        playerShoot = (AudioClip) Resources.Load("Audio/SFX/PlayerShoot");
 	}
 
 	void Update() {
+
+        // Play shoot music
+        if (!isRespawning && !shootAudioSource.isPlaying) {
+            shootAudioSource.PlayOneShot(playerShoot, 0.5f);
+        }
+
 		// Continuous shooting
 		if (Time.time > nextFire && !isRespawning && !usingUlt) {
 			nextFire = Time.time + fireRate;
@@ -199,7 +211,7 @@ public class PlayerController : MonoBehaviour {
 				}
 
 				hm.gotHit();
-                audioSource.PlayOneShot(playerHurt);
+                hurtAudioSource.PlayOneShot(playerHurt);
 
 				// Respawn with invincibility
 				transform.position  = startPos;
@@ -216,6 +228,7 @@ public class PlayerController : MonoBehaviour {
 	
 	IEnumerator Flicker() {
 		SetInvincible(true);
+        shootAudioSource.Stop();
 		isRespawning = true;
 		
 		while (startTime < invincibleTimer) {

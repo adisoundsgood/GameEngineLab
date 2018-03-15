@@ -267,5 +267,5 @@ AudioHighPassFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1591282166781282}
   m_Enabled: 1
-  m_CutoffFrequency: 400
+  m_CutoffFrequency: 700
   m_HighpassResonanceQ: 1
