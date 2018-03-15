@@ -439,7 +439,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4623538075454288, guid: f2932affa93812f468f42a194b4d87d3, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 223258455518159484, guid: f2932affa93812f468f42a194b4d87d3,
         type: 2}
@@ -556,11 +556,6 @@ Prefab:
       propertyPath: healthManager
       value: 
       objectReference: {fileID: 1309368240}
-    - target: {fileID: 114544385169015872, guid: 4824e35473ea8e6448dc52437bcbdad9,
-        type: 2}
-      propertyPath: shieldTimer
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4824e35473ea8e6448dc52437bcbdad9, type: 2}
   m_IsPrefabParent: 0
@@ -662,7 +657,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1779681546
 GameObject:
@@ -741,11 +736,6 @@ Prefab:
       propertyPath: healthManager
       value: 
       objectReference: {fileID: 1309368240}
-    - target: {fileID: 114038490302380612, guid: 3debf66b1b6cf8e46aadc6490e64f4fe,
-        type: 2}
-      propertyPath: shieldTimer
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3debf66b1b6cf8e46aadc6490e64f4fe, type: 2}
   m_IsPrefabParent: 0

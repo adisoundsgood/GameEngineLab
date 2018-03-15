@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	[SerializeField]
-	private float movementSpeed;
+	private float movementSpeed = 7f;
 
 	// Player and ship prefabs
 	[SerializeField]
@@ -37,20 +37,30 @@ public class PlayerController : MonoBehaviour {
 	private bool usingUlt;
 
 	[SerializeField]
-	private float invincibleTimer;
+	private float invincibleTimer = 1.5f;
 	private float startTime = 0f;
+	
+	// Skills
+	private bool ultReady = true;
+	[SerializeField]
+	private float ultTimer = 3f;
+	private float startUlt = 0f;
+	private float ultCD = 13f;
+	private float lastUlt;
 	
 	private bool shieldReady = true;
 	[SerializeField]
-	private float shieldTimer;
+	private float shieldTimer = 3f;
 	private float startShield = 0f;
 	private float shieldCD = 10f;
 	private float lastShield;
 
 	// Shooting
 	public GameObject shot;
+	public GameObject rapidShot;
 	public Transform bulletSpawner;
-	public float fireRate;
+	public float fireRate = 0.25f;
+	public float rapidRate = 0.1f;
 	private float nextFire;
 
     //Audio
@@ -58,6 +68,7 @@ public class PlayerController : MonoBehaviour {
     private AudioClip playerHurt;
 
 	void Awake() {
+		// Instantiating players
 		startPos = transform.position;
 		startRotation = shipPrefab.transform.rotation;
 
@@ -70,6 +81,7 @@ public class PlayerController : MonoBehaviour {
 		
 		shieldPrefab.SetActive(false);
 
+		// Movement constraints
 		movement = Vector3.zero;
 
 		halfWidth = playerPrefab.GetComponent<MeshRenderer>().bounds.extents.x;
@@ -79,24 +91,41 @@ public class PlayerController : MonoBehaviour {
 		screenhalfX = cameraBounds.extents.x;
 		screenhalfY = cameraBounds.extents.y;
 
+		// Health
 		hm = healthManager.GetComponent<PlayerHealthManager>();
 		isInvincible = false;
 
+		// Audio
         audioSource = GetComponent<AudioSource>();
         playerHurt = (AudioClip) Resources.Load("Audio/SFX/Player Hurt");
 	}
 
 	void Update() {
+		// Continuous shooting
 		if (Time.time > nextFire && !isRespawning && !usingUlt) {
 			nextFire = Time.time + fireRate;
 			Instantiate (shot, bulletSpawner.position, bulletSpawner.rotation);
 		}
 		
+		// Using ult
+		if (Time.time > nextFire && !isRespawning && usingUlt) {
+			nextFire = Time.time + fireRate;
+			Instantiate (rapidShot, bulletSpawner.position, bulletSpawner.rotation);
+		}
+		
+		// Skill CD tracking
 		if (!shieldReady && lastShield < shieldCD) {
 			lastShield += Time.deltaTime;
 		}
 		else {
 			shieldReady = true;
+		}
+		
+		if (!ultReady && lastUlt < ultCD) {
+			lastUlt += Time.deltaTime;
+		}
+		else {
+			ultReady = true;
 		}
 	}
 	
@@ -120,8 +149,9 @@ public class PlayerController : MonoBehaviour {
 			rigidBody.MovePosition (rigidBody.position + movement);
 			
 			// Skills
-			if (Input.GetButtonDown("Ult1")) {
-				// do this
+			if (Input.GetButtonDown("Ult1") && ultReady) {
+				lastUlt = 0f;
+				StartCoroutine("UseUlt");
 			}
 			
 			if (Input.GetButtonDown("Shield1") && shieldReady) {
@@ -150,7 +180,8 @@ public class PlayerController : MonoBehaviour {
 						
 			// Skills
 			if (Input.GetButtonDown("Ult2")) {
-				// do this
+				lastUlt = 0f;
+				StartCoroutine("UseUlt");
 			}
 			
 			if (Input.GetButtonDown("Shield2") && shieldReady) {
@@ -169,7 +200,6 @@ public class PlayerController : MonoBehaviour {
 
 				hm.gotHit();
                 audioSource.PlayOneShot(playerHurt);
-
 
 				// Respawn with invincibility
 				transform.position  = startPos;
@@ -232,5 +262,20 @@ public class PlayerController : MonoBehaviour {
 		shieldPrefab.SetActive(false);
 		
 		yield return null;
+	}
+	
+	IEnumerator UseUlt() {
+		usingUlt = true;
+		
+		float prevRate = fireRate;
+		fireRate = rapidRate;
+		
+		while (startUlt < ultTimer) {
+			startUlt += Time.deltaTime + 0.1f;
+			yield return new WaitForSeconds(0.1f);
+		}
+		
+		usingUlt = false;
+		fireRate = prevRate;
 	}
 }

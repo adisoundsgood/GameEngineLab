@@ -268,10 +268,13 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   healthManager: {fileID: 0}
   invincibleTimer: 1.5
+  ultTimer: 3
   shieldTimer: 3
   shot: {fileID: 1424947270433882, guid: 33c8d31d085f6974d904b10a5aca50dc, type: 2}
+  rapidShot: {fileID: 1424947270433882, guid: fc84f6e88d43b1b4cbce4fb8bc382d11, type: 2}
   bulletSpawner: {fileID: 4737179196771700}
   fireRate: 0.25
+  rapidRate: 0.1
 --- !u!135 &135971495985490844
 SphereCollider:
   m_ObjectHideFlags: 1
