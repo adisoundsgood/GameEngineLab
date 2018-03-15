@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class L1EnemyController : MonoBehaviour {
+public class EnemyController : MonoBehaviour {
 
 	// Movement
 	public float speed;
@@ -15,7 +15,6 @@ public class L1EnemyController : MonoBehaviour {
 	public Vector3 velocity;
 
 	// Health
-	public GameObject[] players;
 	public GameObject EnemyHealthManager;
 	private EnemyHealthManager ehm;
 
