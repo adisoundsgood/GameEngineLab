@@ -222,7 +222,9 @@ public class PlayerController : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider col) {
 		if (!isInvincible) {
-			if (col.CompareTag("enemyBullet") || col.CompareTag("enemy")) {
+			if (col.CompareTag("enemyBullet") || col.CompareTag("missile") || col.CompareTag("enemy")) {
+				Destroy(col.gameObject);
+				
 				if (hm.getLives() <= 0) {
 					Destroy(this);
 				}

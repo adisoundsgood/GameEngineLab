@@ -61,7 +61,6 @@ public class L1EnemyController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if (col.CompareTag("playerBullet")) {
-			// Need to add in player strength at some point
 			ehm.gotHit (5);
             if (!audioSource.isPlaying) {
                 audioSource.PlayOneShot(enemyHurt,0.4f);
