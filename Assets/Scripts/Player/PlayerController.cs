@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour {
     private AudioSource hurtAudioSource;
     private AudioClip playerHurt;
     private AudioClip playerShoot;
+    private AudioClip forceField;
 
 	void Awake() {
 		// Instantiating players
@@ -104,6 +105,7 @@ public class PlayerController : MonoBehaviour {
         hurtAudioSource = audioSources[1];
         playerHurt = (AudioClip) Resources.Load("Audio/SFX/Player Hurt");
         playerShoot = (AudioClip) Resources.Load("Audio/SFX/PlayerShoot");
+        forceField = (AudioClip) Resources.Load("Audio/SFX/PlayerForceField");
 	}
 
 	void Update() {
@@ -251,6 +253,7 @@ public class PlayerController : MonoBehaviour {
 	IEnumerator UseShield() {
 		SetInvincible(true);
 		shieldPrefab.SetActive(true);
+        hurtAudioSource.PlayOneShot(forceField,0.7f);
 		
 		MeshRenderer shieldMesh = shieldPrefab.GetComponent<MeshRenderer> ();
 		
