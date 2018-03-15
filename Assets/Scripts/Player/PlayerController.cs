@@ -95,14 +95,7 @@ public class PlayerController : MonoBehaviour {
 			movement = input * movementSpeed * Time.fixedDeltaTime;
 			rigidBody.MovePosition (rigidBody.position + movement);
 			
-			// Skills
-			if (Input.GetButtonDown("Ult1") {
-				// do this
-			}
-			
-			if (Input.GetButtonDown("Shield1") {
-				// do this
-			}
+
 				
 		}
 
