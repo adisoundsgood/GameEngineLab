@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class EnemyHealthManager : MonoBehaviour {
 
 	public GameObject enemy;
+	
+	[SerializeField]
+	private GameObject player1;
+	[SerializeField]
+	private GameObject player2;
 
 	public int maxHP = 100;
 	public int curHP;
@@ -24,6 +29,8 @@ public class EnemyHealthManager : MonoBehaviour {
 
 		if (curHP <= 0) {
 			enemy.SendMessage("Death");
+			player1.SendMessage("SetInvincible", true);
+			player2.SendMessage("SetInvincible", true);
 			winCanvas.SetActive(true);
 		}
 	}

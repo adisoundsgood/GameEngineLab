@@ -126,9 +126,14 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 	}
-
+	
+	void SetInvincible(bool val) {
+		isInvincible = val;
+	}
+	
 	IEnumerator Flicker() {
-		isInvincible = true;
+		SetInvincible(true);
+		
 		while (startTime < invincibleTimer) {
 			startTime += Time.deltaTime + 0.1f;
 
@@ -137,8 +142,10 @@ public class PlayerController : MonoBehaviour {
 			shipMesh.enabled = true;
 			yield return new WaitForSeconds(0.05f);
 		}
+		
 		startTime = 0;
-		isInvincible = false;
+		SetInvincible(false);
+		
 		yield return null;
 	}
 }
