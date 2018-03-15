@@ -20,7 +20,7 @@ public class EnemyShots2 : MonoBehaviour {
 		}
         if (Time.time  > missileNextFire) {
             missileNextFire = Time.time + missileRate;
-            Instantiate(missile, bulletSpawner.position, new Quaternion(bulletSpawner.rotation.x,-90f,90f,bulletSpawner.rotation.w));
+            Instantiate(missile, bulletSpawner.position, new Quaternion(90f,180f,0f,bulletSpawner.rotation.w));
         }
 	}
 }

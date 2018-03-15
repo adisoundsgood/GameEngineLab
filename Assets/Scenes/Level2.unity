@@ -416,6 +416,11 @@ Prefab:
       propertyPath: missileRate
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114703349801811602, guid: 960c014f352cc4955ae5f2e04e4a0ba9,
+        type: 2}
+      propertyPath: fireRate
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 960c014f352cc4955ae5f2e04e4a0ba9, type: 2}
   m_IsPrefabParent: 0
