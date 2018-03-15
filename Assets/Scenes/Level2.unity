@@ -451,6 +451,15 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 34307707}
+    - target: {fileID: 1159842126463386, guid: f2932affa93812f468f42a194b4d87d3, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114536005850921074, guid: f2932affa93812f468f42a194b4d87d3,
+        type: 2}
+      propertyPath: m_Text
+      value: Win Screen
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2932affa93812f468f42a194b4d87d3, type: 2}
   m_IsPrefabParent: 0
