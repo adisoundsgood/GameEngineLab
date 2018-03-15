@@ -8,6 +8,7 @@ public class EnemyBullet : MonoBehaviour {
 
 	private Rigidbody rb;
 
+
 	void Start() {
 		rb = GetComponent<Rigidbody> ();
 	}

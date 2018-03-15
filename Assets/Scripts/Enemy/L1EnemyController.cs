@@ -23,6 +23,7 @@ public class L1EnemyController : MonoBehaviour {
     private AudioSource audioSource;
     private AudioClip enemyHurt;
 
+
 	void Awake() {
 		ehm = EnemyHealthManager.GetComponent<EnemyHealthManager>();
         audioSource = GetComponent<AudioSource>();
