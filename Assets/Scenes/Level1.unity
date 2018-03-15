@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 23257b9a7aba6d740ad37e9d9e733379, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d4ce9cb298e198b43bb7500010d15992, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00080802076, g: 0.0747562, b: 0.19863734, a: 1}
+  m_IndirectSpecularColor: {r: 0.00060875365, g: 0.078837596, b: 0.20594782, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -647,6 +647,16 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114452282632148108, guid: f2932affa93812f468f42a194b4d87d3,
+        type: 2}
+      propertyPath: player1
+      value: 
+      objectReference: {fileID: 238977528}
+    - target: {fileID: 114452282632148108, guid: f2932affa93812f468f42a194b4d87d3,
+        type: 2}
+      propertyPath: player2
+      value: 
+      objectReference: {fileID: 776179064}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2932affa93812f468f42a194b4d87d3, type: 2}
   m_IsPrefabParent: 0
