@@ -42,14 +42,14 @@ public class PlayerController : MonoBehaviour {
 	private float startTime = 0f;
 	
 	// Skills
-	private bool ultReady = true;
+	public bool ultReady = true;
 	[SerializeField]
 	private float ultTimer = 3f;
 	private float startUlt = 0f;
 	private float ultCD = 13f;
 	private float lastUlt;
 	
-	private bool shieldReady = true;
+	public bool shieldReady = true;
 	[SerializeField]
 	private float shieldTimer = 3f;
 	private float startShield = 0f;
@@ -140,14 +140,12 @@ public class PlayerController : MonoBehaviour {
 			Instantiate (rapidShot, bulletSpawner.position, bulletSpawner.rotation);
 		}
 		
-			Debug.Log(shieldReady);
 		// Skill CD tracking
 		if (!ultReady && lastUlt < ultCD) {
 			lastUlt += Time.deltaTime;
 		}
 		else {
 			ultImage.color = new Color32(255, 255, 255, 255);
-			lastUlt = 0f;
 			ultReady = true;
 		}
 		
@@ -156,7 +154,6 @@ public class PlayerController : MonoBehaviour {
 		}
 		else {
 			shieldImage.color = new Color32(255, 255, 255, 255);
-			lastShield = 0f;
 			shieldReady = true;
 		}
 	}
@@ -182,10 +179,14 @@ public class PlayerController : MonoBehaviour {
 			
 			// Skills
 			if (Input.GetButtonDown("Ult1") && ultReady) {
+				lastUlt = 0f;
+				ultImage.color = new Color32(47, 47, 47, 100);
 				StartCoroutine("UseUlt");
 			}
 			
 			if (Input.GetButtonDown("Shield1") && shieldReady) {
+				lastShield = 0f;
+				shieldImage.color = new Color32(47, 47, 47, 100);
 				StartCoroutine("UseShield");
 			}	
 		}
@@ -265,8 +266,8 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	IEnumerator UseUlt() {
+		ultReady = false;
 		usingUlt = true;
-		ultImage.color = new Color32(47, 47, 47, 100);
 		
 		float prevRate = fireRate;
 		fireRate = rapidRate;
@@ -281,9 +282,9 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	IEnumerator UseShield() {
+		shieldReady = false;
 		SetInvincible(true);
 		shieldPrefab.SetActive(true);
-		shieldImage.color = new Color32(47, 47, 47, 100);
         hurtAudioSource.PlayOneShot(forceField,0.7f);
 		
 		MeshRenderer shieldMesh = shieldPrefab.GetComponent<MeshRenderer> ();
@@ -303,7 +304,6 @@ public class PlayerController : MonoBehaviour {
 		}
 		
 		startShield = 0;
-		shieldReady = false;
 		
 		SetInvincible(false);
 		shieldPrefab.SetActive(false);

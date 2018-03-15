@@ -338,7 +338,9 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   healthManager: {fileID: 0}
   invincibleTimer: 1.5
+  ultReady: 1
   ultTimer: 3
+  shieldReady: 1
   shieldTimer: 3
   ultIndicator: {fileID: 0}
   shieldIndicator: {fileID: 0}
@@ -355,7 +357,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1113063218365708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed7c551a46da45528eab93cd27405d3, type: 3}
+  m_Script: {fileID: 11500000, guid: d69be39a7045e3c479351248514a8c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135511975155270114
