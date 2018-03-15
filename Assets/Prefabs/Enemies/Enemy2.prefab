@@ -239,7 +239,7 @@ MonoBehaviour:
   missile: {fileID: 1747000707778474, guid: fb8bc42d12b92ca4d845a5b3b2bcc4c3, type: 2}
   bulletSpawner: {fileID: 4497789356145088}
   fireRate: 0.2
-  missileRate: 10
+  missileRate: 5
 --- !u!114 &114229876787150584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,16 +251,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0242355c4ff75ef448d1bbc11254d2c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 6
   patrol: 1
   waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   curWaypoint: 0
   target: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
-  players: []
   EnemyHealthManager: {fileID: 0}
 --- !u!165 &165846480260151336
 AudioHighPassFilter:
