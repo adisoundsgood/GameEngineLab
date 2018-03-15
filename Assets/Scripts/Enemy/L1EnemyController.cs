@@ -19,8 +19,14 @@ public class L1EnemyController : MonoBehaviour {
 	public GameObject EnemyHealthManager;
 	private EnemyHealthManager ehm;
 
+    // Audio
+    private AudioSource audioSource;
+    private AudioClip enemyHurt;
+
 	void Awake() {
 		ehm = EnemyHealthManager.GetComponent<EnemyHealthManager>();
+        audioSource = GetComponent<AudioSource>();
+        enemyHurt = (AudioClip) Resources.Load("Audio/SFX/EnemyHurt");
 	}
 
 	void Update() {
@@ -56,6 +62,9 @@ public class L1EnemyController : MonoBehaviour {
 		if (col.CompareTag("playerBullet")) {
 			// Need to add in player strength at some point
 			ehm.gotHit (5);
+            if (!audioSource.isPlaying) {
+                audioSource.PlayOneShot(enemyHurt,0.4f);
+            }
 		}
 	}
 

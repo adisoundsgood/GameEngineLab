@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 114229876787150584}
   - component: {fileID: 54166977530939654}
   - component: {fileID: 82455550696002718}
+  - component: {fileID: 165846480260151336}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: enemy
@@ -259,3 +260,12 @@ MonoBehaviour:
   shot: {fileID: 1743683004740736, guid: 8d2ada9e1abf6b64285971e855f2e897, type: 2}
   bulletSpawner: {fileID: 4497789356145088}
   fireRate: 0.1
+--- !u!165 &165846480260151336
+AudioHighPassFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591282166781282}
+  m_Enabled: 1
+  m_CutoffFrequency: 400
+  m_HighpassResonanceQ: 1

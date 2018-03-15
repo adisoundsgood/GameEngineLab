@@ -6,7 +6,8 @@ using UnityEngine.Audio;
 
 public class AudioController : MonoBehaviour {
 
-    private bool titleSceneFlag; // To determine if the Title Scene is loaded from itself
+    private bool titleSceneFlag = false; // To determine if the Title Scene is loaded from itself
+    private bool level1Flag = false; // To determine if the Level 1 is loaded from itself
     private AudioSource source;
 
 	// Use this for initialization
@@ -42,14 +43,16 @@ public class AudioController : MonoBehaviour {
 
         if (scene.name == "Level1") {
             titleSceneFlag = false;
-            AudioClip introClip = Resources.Load<AudioClip>("Audio/Music/BackgroundBEat");
+            if (!level1Flag) {
+                AudioClip introClip = Resources.Load<AudioClip>("Audio/Music/BackgroundBEat");
 
 
-            if (source && introClip) {
-                source.clip = introClip;
-                source.PlayOneShot(introClip);
+                if (source && introClip) {
+                    source.clip = introClip;
+                    source.PlayOneShot(introClip);
+                }
             }
-
+            level1Flag = true;
         }
     }
 }
