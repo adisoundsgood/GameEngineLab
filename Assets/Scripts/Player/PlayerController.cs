@@ -53,6 +53,10 @@ public class PlayerController : MonoBehaviour {
 	public float fireRate;
 	private float nextFire;
 
+    //Audio
+    private AudioSource audioSource;
+    private AudioClip playerHurt;
+
 	void Awake() {
 		startPos = transform.position;
 		startRotation = shipPrefab.transform.rotation;
@@ -77,6 +81,9 @@ public class PlayerController : MonoBehaviour {
 
 		hm = healthManager.GetComponent<PlayerHealthManager>();
 		isInvincible = false;
+
+        audioSource = GetComponent<AudioSource>();
+        playerHurt = (AudioClip) Resources.Load("Audio/SFX/Player Hurt");
 	}
 
 	void Update() {
@@ -161,6 +168,8 @@ public class PlayerController : MonoBehaviour {
 				}
 
 				hm.gotHit();
+                audioSource.PlayOneShot(playerHurt);
+
 
 				// Respawn with invincibility
 				transform.position  = startPos;
