@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
@@ -55,6 +56,14 @@ public class PlayerController : MonoBehaviour {
 	private float shieldCD = 10f;
 	private float lastShield;
 
+	// Cooldown indicators
+	[SerializeField]
+	private GameObject ultIndicator;
+	[SerializeField]
+	private GameObject shieldIndicator;
+	private Image ultImage;
+	private Image shieldImage;
+	
 	// Shooting
 	public GameObject shot;
 	public GameObject rapidShot;
@@ -83,7 +92,11 @@ public class PlayerController : MonoBehaviour {
 
 		shipMesh = playerPrefab.GetComponent<MeshRenderer>();
 		
+		// Skill prefabs
 		shieldPrefab.SetActive(false);
+		
+		ultImage = ultIndicator.GetComponent<Image>();
+		shieldImage = shieldIndicator.GetComponent<Image>();
 
 		// Movement constraints
 		movement = Vector3.zero;
@@ -127,19 +140,24 @@ public class PlayerController : MonoBehaviour {
 			Instantiate (rapidShot, bulletSpawner.position, bulletSpawner.rotation);
 		}
 		
+			Debug.Log(shieldReady);
 		// Skill CD tracking
-		if (!shieldReady && lastShield < shieldCD) {
-			lastShield += Time.deltaTime;
-		}
-		else {
-			shieldReady = true;
-		}
-		
 		if (!ultReady && lastUlt < ultCD) {
 			lastUlt += Time.deltaTime;
 		}
 		else {
+			ultImage.color = new Color32(255, 255, 255, 255);
+			lastUlt = 0f;
 			ultReady = true;
+		}
+		
+		if (!shieldReady && lastShield < shieldCD) {
+			lastShield += Time.deltaTime;
+		}
+		else {
+			shieldImage.color = new Color32(255, 255, 255, 255);
+			lastShield = 0f;
+			shieldReady = true;
 		}
 	}
 	
@@ -164,12 +182,10 @@ public class PlayerController : MonoBehaviour {
 			
 			// Skills
 			if (Input.GetButtonDown("Ult1") && ultReady) {
-				lastUlt = 0f;
 				StartCoroutine("UseUlt");
 			}
 			
 			if (Input.GetButtonDown("Shield1") && shieldReady) {
-				lastShield = 0f;
 				StartCoroutine("UseShield");
 			}	
 		}
@@ -194,12 +210,10 @@ public class PlayerController : MonoBehaviour {
 						
 			// Skills
 			if (Input.GetButtonDown("Ult2")) {
-				lastUlt = 0f;
 				StartCoroutine("UseUlt");
 			}
 			
 			if (Input.GetButtonDown("Shield2") && shieldReady) {
-				lastShield = 0f;
 				StartCoroutine("UseShield");
 			}
 		}
@@ -250,9 +264,26 @@ public class PlayerController : MonoBehaviour {
 		yield return null;
 	}
 	
+	IEnumerator UseUlt() {
+		usingUlt = true;
+		ultImage.color = new Color32(47, 47, 47, 100);
+		
+		float prevRate = fireRate;
+		fireRate = rapidRate;
+		
+		while (startUlt < ultTimer) {
+			startUlt += Time.deltaTime + 0.1f;
+			yield return new WaitForSeconds(0.1f);
+		}
+		
+		usingUlt = false;
+		fireRate = prevRate;
+	}
+	
 	IEnumerator UseShield() {
 		SetInvincible(true);
 		shieldPrefab.SetActive(true);
+		shieldImage.color = new Color32(47, 47, 47, 100);
         hurtAudioSource.PlayOneShot(forceField,0.7f);
 		
 		MeshRenderer shieldMesh = shieldPrefab.GetComponent<MeshRenderer> ();
@@ -278,20 +309,5 @@ public class PlayerController : MonoBehaviour {
 		shieldPrefab.SetActive(false);
 		
 		yield return null;
-	}
-	
-	IEnumerator UseUlt() {
-		usingUlt = true;
-		
-		float prevRate = fireRate;
-		fireRate = rapidRate;
-		
-		while (startUlt < ultTimer) {
-			startUlt += Time.deltaTime + 0.1f;
-			yield return new WaitForSeconds(0.1f);
-		}
-		
-		usingUlt = false;
-		fireRate = prevRate;
 	}
 }

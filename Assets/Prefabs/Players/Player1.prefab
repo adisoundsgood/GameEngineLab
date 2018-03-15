@@ -340,6 +340,8 @@ MonoBehaviour:
   invincibleTimer: 1.5
   ultTimer: 3
   shieldTimer: 3
+  ultIndicator: {fileID: 0}
+  shieldIndicator: {fileID: 0}
   shot: {fileID: 1424947270433882, guid: bb919517ef038ea47ae5a09e9030af1a, type: 2}
   rapidShot: {fileID: 1424947270433882, guid: 1c1e2d87673005a438d6b29e354a9668, type: 2}
   bulletSpawner: {fileID: 4397501081889504}
