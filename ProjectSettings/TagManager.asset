@@ -12,6 +12,7 @@ TagManager:
   - enemy
   - missile
   - shield
+  - ult
   layers:
   - Default
   - TransparentFX

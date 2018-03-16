@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00060875365, g: 0.078837596, b: 0.20594782, a: 1}
+  m_IndirectSpecularColor: {r: 0.0005860804, g: 0.07883903, b: 0.20591775, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -615,6 +615,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 223835925955370218, guid: f2932affa93812f468f42a194b4d87d3,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 34307707}
+    - target: {fileID: 223804175602306314, guid: f2932affa93812f468f42a194b4d87d3,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 34307707}
+    - target: {fileID: 223553410113567558, guid: f2932affa93812f468f42a194b4d87d3,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 34307707}
+    - target: {fileID: 223524233592072084, guid: f2932affa93812f468f42a194b4d87d3,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 34307707}
+    - target: {fileID: 223233191831869296, guid: f2932affa93812f468f42a194b4d87d3,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 34307707}
     - target: {fileID: 114342997516108566, guid: f2932affa93812f468f42a194b4d87d3,
         type: 2}
       propertyPath: enemy
@@ -630,31 +655,6 @@ Prefab:
       propertyPath: player2
       value: 
       objectReference: {fileID: 776179064}
-    - target: {fileID: 223524233592072084, guid: f2932affa93812f468f42a194b4d87d3,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 34307707}
-    - target: {fileID: 223553410113567558, guid: f2932affa93812f468f42a194b4d87d3,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 34307707}
-    - target: {fileID: 223835925955370218, guid: f2932affa93812f468f42a194b4d87d3,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 34307707}
-    - target: {fileID: 223233191831869296, guid: f2932affa93812f468f42a194b4d87d3,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 34307707}
-    - target: {fileID: 223804175602306314, guid: f2932affa93812f468f42a194b4d87d3,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 34307707}
     - target: {fileID: 224685144722760238, guid: f2932affa93812f468f42a194b4d87d3,
         type: 2}
       propertyPath: m_AnchorMax.x
@@ -664,10 +664,6 @@ Prefab:
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1099090131422504, guid: f2932affa93812f468f42a194b4d87d3, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2932affa93812f468f42a194b4d87d3, type: 2}

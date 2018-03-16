@@ -10,7 +10,7 @@ public class EnemyShots2 : MonoBehaviour {
 	public float fireRate;
     public float missileRate;
     private float nextFire = 0.0f;
-    private float missileNextFire = 5f;
+    private float missileNextFire = 3f;
 
 
 	void Update() {

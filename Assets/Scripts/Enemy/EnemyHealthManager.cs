@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class EnemyHealthManager : MonoBehaviour {
 
-	public GameObject enemy;
+	public GameObject[] enemy;
 	
 	[SerializeField]
 	private GameObject player1;
 	[SerializeField]
 	private GameObject player2;
 
-	public int maxHP = 100;
-	public int curHP;
+	public float maxHP = 100f;
+	public float curHP;
 	public Slider healthSlider;
 
 	public GameObject winCanvas;
@@ -21,16 +21,26 @@ public class EnemyHealthManager : MonoBehaviour {
 
 	void Awake() {
 		curHP = maxHP;
+		enemy = GameObject.FindGameObjectsWithTag ("enemy");
 	}
 
-	public void gotHit(int dmg) {
+	public void gotHit(float dmg) {
 		curHP -= dmg;
 		healthSlider.value = curHP;
 
 		if (curHP <= 0) {
-			enemy.SendMessage("Death");
-			player1.SendMessage("SetInvincible", true);
-			player2.SendMessage("SetInvincible", true);
+			for (int i = 0; i < enemy.Length; i++) {
+				enemy[i].SendMessage("Death");
+			}
+
+			if (player1) {
+				player1.SendMessage ("SetInvincible", true);
+			}
+
+			if (player2) {
+				player2.SendMessage ("SetInvincible", true);
+			}
+
 			winCanvas.SetActive(true);
 		}
 	}

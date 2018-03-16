@@ -60,10 +60,17 @@ public class EnemyController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if (col.CompareTag("playerBullet")) {
-			ehm.gotHit (5);
+			ehm.gotHit (4f);
             if (!audioSource.isPlaying) {
-                audioSource.PlayOneShot(enemyHurt,0.4f);
+                audioSource.PlayOneShot(enemyHurt, 0.4f);
             }
+		}
+
+		if (col.CompareTag("ult")) {
+			ehm.gotHit (2.5f);
+			if (!audioSource.isPlaying) {
+				audioSource.PlayOneShot(enemyHurt, 0.4f);
+			}
 		}
 	}
 

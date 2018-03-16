@@ -345,7 +345,7 @@ MonoBehaviour:
   ultIndicator: {fileID: 0}
   shieldIndicator: {fileID: 0}
   shot: {fileID: 1424947270433882, guid: 33c8d31d085f6974d904b10a5aca50dc, type: 2}
-  rapidShot: {fileID: 1424947270433882, guid: fc84f6e88d43b1b4cbce4fb8bc382d11, type: 2}
+  rapidShot: {fileID: 1469411551011248, guid: 11429088b3c726a4c9cc818f86dd63ad, type: 2}
   bulletSpawner: {fileID: 4737179196771700}
   fireRate: 0.25
   rapidRate: 0.1
